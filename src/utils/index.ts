@@ -31,5 +31,8 @@ export const getSiteBaseURL = (): string => {
 };
 
 export const setRoute = (path: string): string => {
+  if (path === "#") {
+    return path;
+  }
   return `${getSiteBaseURL()}${path}`;
 };
