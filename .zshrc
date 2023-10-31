@@ -1,3 +1,5 @@
 alias dev="bun dev"
 alias install="bun install"
 alias pipeline="open https://github.com/Firenzo/contentstack-certification-assignment/actions"
+alias gp="git push"
+alias gpp="git push && pipeline"
