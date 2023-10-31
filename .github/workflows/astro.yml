@@ -27,8 +27,8 @@ concurrency:
 env:
   BUILD_PATH: "." # default value when not using subfolders
   # BUILD_PATH: subfolder
-  SITE_URL: "firenzo.github.io"
-  BASE_URL: "/contentstack-certification-assignment"
+  HOST_URL: "firenzo.github.io"
+  SITE_PATH: "/contentstack-certification-assignment"
   NODE_ENV: "prd"
 
 jobs:

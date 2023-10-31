@@ -1,15 +1,15 @@
 import { defineConfig } from "astro/config";
+import { Environment } from "./src/utils/index";
 
 const createAstroConfig = () => {
-  if (process.env.NODE_ENV === "prd") {
+  if (Environment.isProd()) {
     return {
-      site: process.env.SITE_URL,
-      base: process.env.BASE_URL,
+      site: process.env.HOST_URL,
+      base: process.env.SITE_PATH,
     };
   }
   return {};
 };
-let astroConfig = createAstroConfig();
 
 // https://astro.build/config
-export default defineConfig(astroConfig);
+export default defineConfig(createAstroConfig());

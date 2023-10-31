@@ -2,6 +2,7 @@
 import NavButton from "../components/NavButton.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { getSiteBaseURL } from "../utils/index";
 
 interface Props {
   headTitle: string;
@@ -9,9 +10,10 @@ interface Props {
 
 const { headTitle } = Astro.props;
 const currentYear = new Date().getFullYear();
-const siteURL = process.env.SITE_URL;
-const baseURL = process.env.BASE_URL;
+const hostURL = process.env.HOST_URL;
+const sitePath = process.env.SITE_PATH;
 const nodeEnv = process.env.NODE_ENV;
+const abc = getSiteBaseURL();
 ---
 
 <!doctype html>
@@ -30,7 +32,9 @@ const nodeEnv = process.env.NODE_ENV;
     <title>{headTitle}</title>
   </head>
   <body>
-    <h1>Site: {siteURL} | Base: {baseURL} | Env: {nodeEnv}</h1>
+    <h1>
+      Site: {hostURL} | Base: {sitePath} | Env: {nodeEnv} | SiteBaseURL: {abc}
+    </h1>
     <Header
       title="PokemonPrime"
       text="Stay in the Loop with Pokémon: Your Daily Dose of PokéNews & Real-Time Data Updates!"
