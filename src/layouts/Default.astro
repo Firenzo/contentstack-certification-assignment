@@ -9,6 +9,8 @@ interface Props {
 
 const { headTitle } = Astro.props;
 const currentYear = new Date().getFullYear();
+const siteURL = process.env.SITE_URL;
+const baseURL = process.env.BASE_URL;
 ---
 
 <!doctype html>
@@ -27,6 +29,7 @@ const currentYear = new Date().getFullYear();
     <title>{headTitle}</title>
   </head>
   <body>
+    <h1>{siteURL}{baseURL}</h1>
     <Header
       title="PokemonPrime"
       text="Stay in the Loop with Pokémon: Your Daily Dose of PokéNews & Real-Time Data Updates!"
