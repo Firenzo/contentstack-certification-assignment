@@ -11,6 +11,7 @@ const { headTitle } = Astro.props;
 const currentYear = new Date().getFullYear();
 const siteURL = process.env.SITE_URL;
 const baseURL = process.env.BASE_URL;
+const nodeEnv = process.env.NODE_ENV;
 ---
 
 <!doctype html>
@@ -29,7 +30,7 @@ const baseURL = process.env.BASE_URL;
     <title>{headTitle}</title>
   </head>
   <body>
-    <h1>{siteURL}{baseURL}</h1>
+    <h1>Site: {siteURL} | Base: {baseURL} | Env: {nodeEnv}</h1>
     <Header
       title="PokemonPrime"
       text="Stay in the Loop with Pokémon: Your Daily Dose of PokéNews & Real-Time Data Updates!"
