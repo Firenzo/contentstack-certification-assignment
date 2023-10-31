@@ -1,0 +1,36 @@
+---
+interface Props {
+  title: string;
+  amount: number;
+}
+
+const { title, amount } = Astro.props;
+---
+
+<div class="pokemon-counter-widget">
+  <h3 class="title">{title}</h3>
+  <p class="amount">{amount}</p>
+</div>
+
+<style scoped lang="scss">
+  .pokemon-counter-widget {
+    background: #2da46b;
+    color: white;
+    font-family: "Mitr", sans-serif;
+    border-radius: 30px;
+    padding: 2.5rem 3rem 4rem;
+    margin-bottom: 2rem;
+
+    .title {
+      line-height: 2rem;
+      font-size: 24px;
+      margin-bottom: 50px;
+      font-weight: 500;
+    }
+
+    .amount {
+      font-weight: bold;
+      font-size: 55px;
+    }
+  }
+</style>

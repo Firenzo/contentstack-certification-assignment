@@ -1,0 +1,59 @@
+---
+import Default from "../../layouts/Default.astro";
+import NewsIntro from "../../components/NewsIntro.astro";
+import ZebraStripe from "../../components/ZebraStripe.astro";
+import Navigation from "../../components/Navigation.astro";
+import newsImage from "../../assets/images/team-rocket-blasting-off.jpg";
+const text = `Enter the enchanting world of Pokémon with our concise news coverage. Whether you're a devoted Trainer or new to the game, our page keeps you updated on the latest in the Pokémon universe. From new regions to legendary encounters, events, evolutions, and controversies, we've got it all. Dive in and stay informed!`;
+const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
+
+export function getStaticPaths() {
+  return [
+    {
+      params: {
+        article: "team-rocket",
+      },
+    },
+  ];
+}
+
+const { article } = Astro.params;
+---
+
+<Default headTitle="Team Rocket is blasting off again | PokemonPrime">
+  <main>
+    <Navigation />
+
+    <ZebraStripe>
+      <div class="news-detail-page">
+        <NewsIntro
+          title="Team Rocket is blasting off again"
+          image={newsImage}
+          imageAlt="A photo of Team Rocket blasting off"
+          text={newsText}
+        />
+        <div class="news-detail-container">
+          <p>{newsText}</p>
+          <br /><br />
+          <p>{text}</p>
+          <p>{newsText}</p>
+          <br /><br />
+          <p>{text}</p>
+          <p>{newsText}</p>
+          <br /><br />
+          <p>{text}</p>
+          <p>{newsText}</p>
+          <br /><br />
+          <p>{text}</p>
+        </div>
+      </div>
+    </ZebraStripe>
+  </main>
+</Default>
+
+<style is:global lang="scss">
+  .news-detail-container {
+    max-width: 800px !important;
+    margin: auto;
+  }
+</style>

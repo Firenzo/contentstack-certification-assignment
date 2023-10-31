@@ -1,0 +1,43 @@
+---
+import NavButton from "../components/NavButton.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  headTitle: string;
+}
+
+const { headTitle } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;500&family=Rubik:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{headTitle}</title>
+  </head>
+  <body>
+    <Header
+      title="PokemonPrime"
+      text="Stay in the Loop with Pokémon: Your Daily Dose of PokéNews & Real-Time Data Updates!"
+    />
+    <slot />
+    <Footer
+      text={`All content & design © PokemonPrime, ${currentYear}. Pokémon images & names © 1995-${currentYear} Nintendo/Game Freak.`}
+    />
+  </body>
+</html>
+
+<style is:global lang="scss">
+  @use "../styles/global.scss";
+</style>

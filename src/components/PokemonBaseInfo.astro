@@ -1,0 +1,135 @@
+---
+import type { PokemonType } from "../types/types";
+import { toPokemonNumber } from "../utils";
+interface Props<Type extends PokemonType | undefined = undefined> {
+  name: string;
+  number: number;
+  primaryType: Type;
+  secondaryType: Type extends undefined ? Type : Exclude<PokemonType, Type>;
+  image: ImageMetadata;
+  imageAlt: string;
+}
+
+const { name, number, primaryType, secondaryType, image, imageAlt } =
+  Astro.props;
+const pokemonNumber = toPokemonNumber(number);
+---
+
+<div class="pokemon-base-info">
+  <div class="pokemon-info">
+    <p class="pokemon-number">{pokemonNumber}</p>
+    <p class="pokemon-name">{name}</p>
+    <div class="pokemon-types">
+      <span class="pokemon-type">{primaryType}</span>
+      <span class="pokemon-type">{secondaryType}</span>
+    </div>
+  </div>
+
+  <div class="pokemon-image">
+    <div class="image">
+      <img src={image.src} alt={imageAlt} />
+    </div>
+  </div>
+</div>
+
+<style scoped lang="scss">
+  @use "../styles/breakpoints.scss" as *;
+
+  .pokemon-base-info {
+    color: white;
+    width: 90%;
+    margin: auto;
+
+    @include mq-up("desktop") {
+      flex-basis: 30%;
+      margin: 0;
+      margin-left: 5%;
+      margin-right: 2.5rem;
+      position: sticky;
+      top: 5rem;
+      height: 100%;
+    }
+
+    @media (min-width: 1556px) {
+      margin-left: calc((100% - 1400px) / 2);
+    }
+
+    .pokemon-info {
+      position: relative;
+      z-index: 10;
+
+      .pokemon-number {
+        font-family: "Mitr", sans-serif;
+        font-size: 20px;
+        font-weight: 100;
+        margin-bottom: 1rem;
+
+        @include mq-up("desktop") {
+          font-size: 30px;
+          margin-bottom: 1.5rem;
+        }
+      }
+
+      .pokemon-name {
+        font-family: "Mitr", sans-serif;
+        font-size: 40px;
+        margin-bottom: 2rem;
+
+        @include mq-up("desktop") {
+          font-size: 50px;
+        }
+      }
+
+      .pokemon-types {
+        display: flex;
+        margin-bottom: 1rem;
+
+        .pokemon-type {
+          display: block;
+          background: white;
+          border-radius: 300px;
+          padding: 0.5rem 1.5rem;
+          color: #c86b8d;
+
+          &:nth-of-type(2) {
+            margin-left: 0.75rem;
+          }
+        }
+      }
+    }
+
+    .pokemon-image {
+      position: absolute;
+      width: 100%;
+      top: 2rem;
+      left: 0;
+
+      @include mq-up("desktop") {
+        position: static;
+        top: 0;
+        left: 0;
+      }
+
+      .image {
+        overflow: hidden;
+        img {
+          max-width: 220px;
+          margin-left: 30%;
+
+          @include mq-up("mobile") {
+            margin-left: 40%;
+          }
+
+          @include mq-up("small-tablet") {
+            margin-left: 256px;
+          }
+
+          @include mq-up("desktop") {
+            margin-left: 0;
+            max-width: 330px;
+          }
+        }
+      }
+    }
+  }
+</style>

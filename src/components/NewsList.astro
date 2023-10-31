@@ -1,0 +1,58 @@
+---
+import LinkCard from "./LinkCard.astro";
+import NewsImage from "../assets/images/team-rocket-blasting-off.jpg";
+
+const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
+const items = [1, 2, 3, 4, 5, 6];
+---
+
+<div class="news-list">
+  <div class="container">
+    <h2>Featured news articles</h2>
+    <div class="news-list-items">
+      {
+        items.map(() => (
+          <LinkCard
+            title="Team Rocket is blasting off again"
+            publicationDate="14-02-1995"
+            description={newsText}
+            image={NewsImage}
+            imageAltText="this is an image"
+            href="/news/team-rocket"
+          />
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  @use "../styles/breakpoints.scss" as *;
+
+  .news-list {
+    .news-list-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      @include mq-up("desktop") {
+        gap: 1.5rem;
+      }
+
+      .link-card {
+        flex-basis: 100%;
+        border: 1px solid rgb(91, 91, 91);
+        padding: 1rem;
+        border-radius: 15px;
+
+        @include mq-up("small-tablet") {
+          flex-basis: calc(50% - 1rem);
+        }
+
+        @include mq-up("desktop") {
+          flex-basis: calc(100% / 3 - 1.5rem);
+        }
+      }
+    }
+  }
+</style>

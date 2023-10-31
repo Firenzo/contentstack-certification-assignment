@@ -1,0 +1,65 @@
+---
+import { toPokemonNumber } from "../utils/index";
+interface Props {
+  name: string;
+  number: number;
+  image: ImageMetadata;
+  imageAltText: string;
+  href: string;
+}
+
+const { name, number, image, imageAltText, href } = Astro.props;
+const pokemonNumber = toPokemonNumber(number);
+---
+
+<a href={href} class="pokemon-card">
+  <div class="pokemon-card-image">
+    <img src={image.src} alt={imageAltText} />
+  </div>
+  <div class="pokemon-card-content">
+    <p class="pokemon-number">
+      {pokemonNumber}
+    </p>
+    <h3 class="pokemon-card-title margin-bottom-0">{name}</h3>
+  </div>
+</a>
+
+<style scoped lang="scss">
+  @use "../styles/breakpoints.scss" as *;
+
+  .pokemon-card {
+    width: 100%;
+    color: white;
+    text-decoration: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .pokemon-card-image {
+      height: 300px;
+      img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .pokemon-card-content {
+      align-self: flex-start;
+      margin-left: 3.5%;
+      margin-top: auto;
+    }
+
+    .pokemon-card-title {
+      margin-bottom: 1rem;
+    }
+
+    .pokemon-number {
+      color: #767676;
+      font-size: 20px;
+      font-family: "Mitr", sans-serif;
+      margin-top: 1rem;
+    }
+  }
+</style>

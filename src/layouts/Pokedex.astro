@@ -1,0 +1,84 @@
+---
+import NavButton from "../components/NavButton.astro";
+import Header from "../components/Header.astro";
+import PokemonBaseInfo from "../components/PokemonBaseInfo.astro";
+import Footer from "../components/Footer.astro";
+import BackButton from "../components/BackButton.astro";
+import PokemonImage from "../assets/images/pokemon/0905Enamorus2.png";
+
+interface Props {
+  headTitle: string;
+}
+
+const { headTitle } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;500&family=Rubik:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{headTitle}</title>
+  </head>
+  <body>
+    <header>
+      <BackButton href="/pokedex" />
+    </header>
+    <div class="pokedex-layout flex-container">
+      <PokemonBaseInfo
+        name="Enamorus"
+        number={500}
+        primaryType="fairy"
+        secondaryType="flying"
+        image={PokemonImage}
+        imageAlt="Image of Enamorus"
+      />
+      <slot />
+    </div>
+    <Footer
+      text={`All content & design © PokemonPrime, ${currentYear}. Pokémon images & names © 1995-${currentYear} Nintendo/Game Freak.`}
+    />
+  </body>
+</html>
+
+<style scoped lang="scss"></style>
+
+<style is:global lang="scss">
+  @use "../styles/breakpoints.scss" as *;
+  @use "../styles/global.scss";
+
+  body {
+    background: #e7a7bf;
+  }
+
+  @include mq-up("desktop") {
+    .pokedex-layout.flex-container {
+      display: flex;
+      margin-top: 10rem;
+
+      main {
+        width: 100%;
+      }
+    }
+
+    header {
+      position: sticky;
+      top: 1rem;
+    }
+  }
+  .backButton {
+    svg {
+      fill: white;
+      width: 30px;
+    }
+  }
+</style>

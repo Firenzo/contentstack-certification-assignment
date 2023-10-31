@@ -1,0 +1,39 @@
+---
+interface Props {
+  title: string;
+  text: string;
+}
+
+const { title, text } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container">
+    <h1>{title}</h1>
+    <p class="tagline">{text}</p>
+  </div>
+</header>
+
+<style scoped lang="scss">
+  @use "../styles/breakpoints.scss" as *;
+
+  .site-header {
+    background: #191919;
+    color: white;
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 3rem 0 1rem;
+
+    @include mq-up("tablet") {
+      padding: 3rem 0 3rem;
+    }
+  }
+
+  .site-header .tagline {
+    font-family: "Mitr", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    max-width: 450px;
+    margin: auto;
+  }
+</style>

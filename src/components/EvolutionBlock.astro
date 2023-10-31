@@ -1,0 +1,97 @@
+---
+import type { Evolution } from "../types/types";
+import Bulbasaur from "../assets/images/pokemon/0001Bulbasaur.webp";
+
+interface Props {
+  evolutions: Evolution[];
+}
+---
+
+<div class="evolution-block">
+  <div class="container">
+    <h2>Evolution Chain</h2>
+    <div class="evolutions">
+      <a href="#" class="evolution-item">
+        <p class="evolution-type">Stage 1</p>
+
+        <div class="image">
+          <img src={Bulbasaur.src} alt="Bulbasaur" />
+        </div>
+
+        <div class="name-and-number">
+          <p class="pokemon-number">#001</p>
+          <p class="pokemon-name">Bulbasaur</p>
+        </div>
+      </a>
+
+      <a href="#" class="evolution-item">
+        <p class="evolution-type">Stage 2</p>
+
+        <div class="image">
+          <img src={Bulbasaur.src} alt="Bulbasaur" />
+        </div>
+
+        <div class="name-and-number">
+          <p class="pokemon-number">#002</p>
+          <p class="pokemon-name">Ivysaur</p>
+        </div>
+      </a>
+
+      <a href="#" class="evolution-item">
+        <p class="evolution-type">Stage 3</p>
+
+        <div class="image">
+          <img src={Bulbasaur.src} alt="Bulbasaur" />
+        </div>
+
+        <div class="name-and-number">
+          <p class="pokemon-number">#003</p>
+          <p class="pokemon-name">Venusaur</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style scoped lang="scss">
+  @use "../styles/breakpoints.scss" as *;
+
+  .evolution-block {
+    .evolutions {
+      .evolution-item {
+        display: block;
+        max-width: 400px;
+        margin: auto;
+        margin-bottom: 2rem;
+        color: black;
+        text-decoration: none;
+
+        .evolution-type {
+          font-weight: bold;
+          text-align: center;
+          margin-bottom: 0.5rem;
+        }
+
+        .name-and-number {
+          text-align: center;
+          .pokemon-name {
+            font-weight: bold;
+          }
+        }
+
+        .image {
+          padding: 1rem;
+          background: #e2f1ec;
+          border-radius: 15px;
+          height: 150px;
+          margin-bottom: 0.5rem;
+
+          img {
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+  }
+</style>

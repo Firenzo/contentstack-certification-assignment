@@ -1,0 +1,36 @@
+---
+interface Props {
+  isDark?: boolean;
+  removeMarginBottom?: boolean;
+}
+
+const { isDark, removeMarginBottom } = Astro.props;
+---
+
+<div
+  class:list={[
+    "zebra-stripe",
+    { "is-dark": isDark },
+    { "no-margin-bottom": removeMarginBottom },
+  ]}
+>
+  <slot />
+</div>
+
+<style lang="scss">
+  .zebra-stripe {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    &.is-dark {
+      background: #191919;
+      color: white;
+    }
+
+    &.no-margin-bottom {
+      margin-bottom: 0;
+    }
+  }
+</style>

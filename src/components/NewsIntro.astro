@@ -1,0 +1,41 @@
+---
+interface Props {
+  title: string;
+  text: string;
+  image: ImageMetadata;
+  imageAlt: string;
+}
+
+const { title, text, image, imageAlt } = Astro.props;
+---
+
+<div class="news-intro">
+  <div class="news-detail-container">
+    <h2>{title}</h2>
+  </div>
+
+  <div class="image margin-bottom-1">
+    <img src={image.src} alt={imageAlt} />
+  </div>
+
+  <div class="news-detail-container">
+    <p class="mw-text">
+      {text}
+    </p>
+  </div>
+
+  <style scoped lang="scss">
+    .news-intro {
+      .image {
+        background: #dadada;
+        padding: 2rem 0;
+
+        img {
+          border-radius: 30px;
+          max-width: 630px;
+          margin: auto;
+        }
+      }
+    }
+  </style>
+</div>

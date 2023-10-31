@@ -1,0 +1,35 @@
+$breakpoints: (
+  "mobile": 480px,
+  "small-tablet": 640px,
+  "tablet": 768px,
+  "big-tablet": 880px,
+  "desktop": 1024px,
+  "bigscreen": 1200px,
+  "xlscreen": 1400px,
+);
+
+@mixin mq-down($breakpoint) {
+  @if map-has-key($map: $breakpoints, $key: $breakpoint) {
+    @media (max-width: calc(map-get($breakpoints, $breakpoint) - 1px)) {
+      @content;
+    }
+  }
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Value `#{$breakpoint}` not found. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+@mixin mq-up($breakpoint) {
+  @if map-has-key($map: $breakpoints, $key: $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Value `#{$breakpoint}` not found. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}

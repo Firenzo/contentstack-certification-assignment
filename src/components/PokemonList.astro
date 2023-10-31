@@ -1,0 +1,90 @@
+---
+import PokemonCard from "./PokemonCard.astro";
+import Enamorus from "../assets/images/pokemon/0905Enamorus2.png";
+import Bulbasaur from "../assets/images/pokemon/0001Bulbasaur.webp";
+import Ivysaur from "../assets/images/pokemon/0002Ivysaur.png";
+import Venusaur from "../assets/images/pokemon/0003Venusaur.png";
+
+const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
+const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+---
+
+<div class="pokemon-list">
+  <div class="container">
+    <h2>Pokemon list</h2>
+    <div class="pokemon-list-items">
+      {
+        items.map(() => (
+          <>
+            <PokemonCard
+              name="Bulbasaur"
+              number={1}
+              image={Bulbasaur}
+              imageAltText="this is an image"
+              href="/pokedex/enamorus"
+            />
+
+            <PokemonCard
+              name="Ivysaur"
+              number={2}
+              image={Ivysaur}
+              imageAltText="this is an image"
+              href="/pokedex/enamorus"
+            />
+
+            <PokemonCard
+              name="Venusaur"
+              number={2}
+              image={Venusaur}
+              imageAltText="this is an image"
+              href="/pokedex/enamorus"
+            />
+
+            <PokemonCard
+              name="Enamorus"
+              number={905}
+              image={Enamorus}
+              imageAltText="this is an image"
+              href="/pokedex/enamorus"
+            />
+          </>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style is:global lang="scss">
+  @use "../styles/breakpoints.scss" as *;
+
+  .pokemon-list {
+    .pokemon-list-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      @include mq-up("desktop") {
+        gap: 1.5rem;
+      }
+
+      .pokemon-card {
+        flex-basis: 100%;
+        border: 1px solid rgb(91, 91, 91);
+        padding: 1rem;
+        border-radius: 15px;
+
+        @include mq-up("small-tablet") {
+          flex-basis: calc(50% - 1rem);
+        }
+
+        @include mq-up("desktop") {
+          flex-basis: calc(100% / 3 - 1.5rem);
+        }
+
+        @include mq-up("xlscreen") {
+          flex-basis: calc(25% - 1.5rem);
+        }
+      }
+    }
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+import chevronLeft from "../assets/icons/chevron-left-solid.svg?raw";
+import chevronRight from "../assets/icons/chevron-right-solid.svg?raw";
+---
+
+<slider-component>
+  <div class="slider">
+    <div class="slider-navigation-buttons">
+      <button class="slider-navigation-button slider-navigation-button-left">
+        <Fragment set:html={chevronLeft} />
+      </button>
+
+      <button class="slider-navigation-button slider-navigation-button-right">
+        <Fragment set:html={chevronRight} />
+      </button>
+    </div>
+
+    <ul>
+      <slot />
+    </ul>
+  </div>
+</slider-component>
+
+<script>
+  import { animate } from "motion";
+  class SliderComponent extends HTMLElement {
+    currentItem = 1;
+    buttonLeft = this.querySelector(".slider-navigation-button-left");
+    buttonRight = this.querySelector(".slider-navigation-button-right");
+    sliderItems = this.querySelectorAll("li.slider-item")?.length;
+
+    constructor() {
+      super();
+
+      this.buttonLeft?.addEventListener("click", () => {
+        if (this.currentItem <= 1) {
+          return;
+        }
+        this.currentItem -= 1;
+
+        this.switchSlide();
+      });
+
+      this.buttonRight?.addEventListener("click", () => {
+        if (this.currentItem >= this.sliderItems) {
+          return;
+        }
+        this.currentItem += 1;
+        this.switchSlide();
+      });
+    }
+
+    switchSlide() {
+      const propertyValue =
+        this.currentItem === 1
+          ? "0"
+          : `calc(-${this.currentItem - 1}00% - ${this.currentItem - 1}00px)`;
+
+      animate(".slider-item", { left: propertyValue }, { duration: 0.5 });
+    }
+  }
+
+  customElements.define("slider-component", SliderComponent);
+</script>
+
+<style scoped lang="scss">
+  @use "../styles/breakpoints.scss" as *;
+
+  .slider {
+    overflow: hidden;
+
+    .slider-navigation-buttons {
+      position: absolute;
+      width: 90%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 27%;
+      z-index: 100;
+      max-width: 1400px;
+
+      @media (min-width: 484px) {
+        margin-top: 130px;
+      }
+    }
+    .slider-navigation-buttons .slider-navigation-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #2da46b;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      outline: none;
+      border: none;
+      color: white;
+
+      &:hover {
+        background: #1d7c4e;
+      }
+    }
+
+    > ul {
+      list-style: none;
+      display: flex;
+
+      @include mq-up("big-tablet") {
+        width: 85%;
+        margin: auto;
+      }
+    }
+  }
+</style>
+
+<!-- Specific styling for svg -->
+<style is:global lang="scss">
+  .slider-navigation-buttons svg {
+    fill: white;
+    height: 35px;
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="latest-news-block margin-bottom-2">
+  <div class="container">
+    <h2>{title}</h2>
+    <slot />
+  </div>
+</div>

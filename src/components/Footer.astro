@@ -1,0 +1,27 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<footer class="footer">
+  <div class="container">
+    <p class="footer-text">{text}</p>
+  </div>
+</footer>
+
+<style scoped>
+  .footer {
+    padding: 1.5rem 0;
+    background: #191919;
+  }
+
+  .footer p {
+    color: white;
+    font-size: 14px;
+    line-height: normal;
+    color: #767676;
+  }
+</style>

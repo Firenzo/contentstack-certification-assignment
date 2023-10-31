@@ -1,0 +1,88 @@
+---
+import PokemonCounterWidget from "./PokemonCounterWidget.astro";
+import ArrowRight from "../assets/icons/arrow-right-solid.svg?raw";
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="pokemon-data-block">
+  <div class="container">
+    <h2>{title}</h2>
+    <div class="flex-container">
+      <div class="left-side">
+        <slot />
+      </div>
+
+      <div class="right-side">
+        <PokemonCounterWidget
+          title="Amount of discovered Pokemon up until now:"
+          amount={905}
+        />
+        <div class="link-to-pokedex">
+          <a class="button" href="/pokedex">
+            Open pokedex <Fragment set:html={ArrowRight} />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style scoped lang="scss">
+  @use "../styles/breakpoints.scss" as *;
+
+  .pokemon-data-block {
+    .flex-container {
+      @include mq-up("tablet") {
+        display: flex;
+        gap: 1rem;
+      }
+
+      @include mq-up("big-tablet") {
+        gap: 2rem;
+      }
+    }
+
+    .link-to-pokedex {
+      .button {
+        display: flex;
+        justify-content: center;
+        font-size: 26px;
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        border: 1px solid #c4c4c4;
+        border-radius: 30px;
+        padding: 2.5rem 1rem;
+      }
+    }
+  }
+</style>
+
+<!-- Specific icon styling -->
+<style is:global lang="scss">
+  .pokemon-data-block {
+    .link-to-pokedex {
+      .button {
+        svg {
+          height: 32px;
+          margin-left: 1rem;
+        }
+      }
+
+      &:hover {
+        .button {
+          color: #2d2d2d !important;
+          border: 1px solid #717171 !important;
+        }
+
+        .button svg {
+          fill: #2d2d2d;
+        }
+      }
+    }
+  }
+</style>
