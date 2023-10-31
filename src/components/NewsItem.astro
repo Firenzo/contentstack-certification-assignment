@@ -7,9 +7,10 @@ interface Props {
   description: string;
   image: ImageMetadata;
   imageAltText: string;
+  href: string;
 }
 
-const { title, publicationDate, description, image, imageAltText } =
+const { title, publicationDate, description, image, imageAltText, href } =
   Astro.props;
 ---
 
@@ -23,7 +24,7 @@ const { title, publicationDate, description, image, imageAltText } =
       <time datetime={publicationDate}>{publicationDate}</time>
     </p>
     <p class="description mw-text">{description}</p>
-    <Button href="/news/team-rocket" text="Read More" />
+    <Button href={href} text="Read More" />
   </div>
 </div>
 

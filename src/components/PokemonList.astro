@@ -4,9 +4,11 @@ import Enamorus from "../assets/images/pokemon/0905Enamorus2.png";
 import Bulbasaur from "../assets/images/pokemon/0001Bulbasaur.webp";
 import Ivysaur from "../assets/images/pokemon/0002Ivysaur.png";
 import Venusaur from "../assets/images/pokemon/0003Venusaur.png";
+import { setRoute } from "../utils";
 
 const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+const pokemonURL = setRoute("/pokedex/enamorus");
 ---
 
 <div class="pokemon-list">
@@ -21,7 +23,7 @@ const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
               number={1}
               image={Bulbasaur}
               imageAltText="this is an image"
-              href="/pokedex/enamorus"
+              href={pokemonURL}
             />
 
             <PokemonCard
@@ -29,7 +31,7 @@ const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
               number={2}
               image={Ivysaur}
               imageAltText="this is an image"
-              href="/pokedex/enamorus"
+              href={pokemonURL}
             />
 
             <PokemonCard
@@ -37,7 +39,7 @@ const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
               number={2}
               image={Venusaur}
               imageAltText="this is an image"
-              href="/pokedex/enamorus"
+              href={pokemonURL}
             />
 
             <PokemonCard
@@ -45,7 +47,7 @@ const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
               number={905}
               image={Enamorus}
               imageAltText="this is an image"
-              href="/pokedex/enamorus"
+              href={pokemonURL}
             />
           </>
         ))

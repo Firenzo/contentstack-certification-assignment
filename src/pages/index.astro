@@ -11,6 +11,7 @@ import NewsItem from "../components/NewsItem.astro";
 import newsImage from "../assets/images/team-rocket-blasting-off.jpg";
 import Navigation from "../components/Navigation.astro";
 import LatestNewsBlock from "../components/LatestNewsBlock.astro";
+import { setRoute } from "../utils";
 
 const text = `Introducing "PokemonPrime: Your Portal to Pokémon World Updates!" Our website is
     your one-stop destination for all things Pokémon. Stay informed with the
@@ -25,6 +26,7 @@ const text = `Introducing "PokemonPrime: Your Portal to Pokémon World Updates!"
 
 const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
 const description = `Enarmorus, when it flies to this land from across the sea, the bitter winter comes to an end. According to legend, this Pokémon’s love gives rise to the budding of fresh life across Hisui.`;
+const newsItemURL = setRoute("/news/team-rocket");
 ---
 
 <Default headTitle="PokemonPrime">
@@ -44,6 +46,7 @@ const description = `Enarmorus, when it flies to this land from across the sea, 
               description={newsText}
               image={newsImage}
               imageAltText="image alt text"
+              href={newsItemURL}
             />
           </SliderItem>
 
@@ -54,6 +57,7 @@ const description = `Enarmorus, when it flies to this land from across the sea, 
               description={newsText}
               image={newsImage}
               imageAltText="image alt text"
+              href={newsItemURL}
             />
           </SliderItem>
 
@@ -64,6 +68,7 @@ const description = `Enarmorus, when it flies to this land from across the sea, 
               description={newsText}
               image={newsImage}
               imageAltText="image alt text"
+              href={newsItemURL}
             />
           </SliderItem>
         </Slider>

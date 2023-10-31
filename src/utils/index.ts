@@ -29,3 +29,7 @@ export const getSiteBaseURL = (): string => {
   }
   return "";
 };
+
+export const setRoute = (path: string): string => {
+  return `${getSiteBaseURL()}${path}`;
+};

@@ -1,6 +1,6 @@
 ---
 import type { PokemonType } from "../types/types";
-import { toPokemonNumber } from "../utils";
+import { toPokemonNumber, setRoute } from "../utils";
 
 interface Props<Type extends PokemonType | undefined = undefined> {
   title: string;
@@ -16,9 +16,10 @@ const { title, number, name, primaryType, secondaryType, description, image } =
   Astro.props;
 
 const pokemonNumber = toPokemonNumber(number);
+const pokemonURL = setRoute("/pokedex/enamorus");
 ---
 
-<a href="/pokedex/enamorus" class="pokemon-info-block">
+<a href={pokemonURL} class="pokemon-info-block">
   <h3 class="pokemon-info-block-title margin-bottom-0">{title}</h3>
   <div class="image">
     <img src={image.src} alt={`image of ${name}`} />

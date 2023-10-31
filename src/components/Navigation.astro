@@ -1,14 +1,21 @@
 ---
 import NavButton from "./NavButton.astro";
+import { setRoute } from "../utils/index";
+
+const homeURL = setRoute("/");
+const newsURL = setRoute("/news");
+const pokedexURL = setRoute("/pokedex");
 ---
 
 <nav class="main-navigation">
   <div class="container">
     <ul>
-      <li><NavButton href="/" image="#" color="red" text="Home" /></li>
-      <li><NavButton href="/news" image="#" color="yellow" text="News" /></li>
       <li>
-        <NavButton href="/pokedex" image="#" color="blue" text="Pokedex" />
+        <NavButton href={homeURL} image="#" color="red" text="Home" />
+      </li>
+      <li><NavButton href={newsURL} image="#" color="yellow" text="News" /></li>
+      <li>
+        <NavButton href={pokedexURL} image="#" color="blue" text="Pokedex" />
       </li>
     </ul>
   </div>
