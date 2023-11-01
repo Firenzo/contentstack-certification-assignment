@@ -30,6 +30,11 @@ env:
   HOST_URL: "https://firenzo.github.io"
   SITE_PATH: "/contentstack-certification-assignment"
   NODE_ENV: "prd"
+  CONTENTSTACK_ENVIRONMENT: "production"
+  CONTENTSTACK_REGION: "eu"
+  CONTENTSTACK_API_HOST: "eu-api.contentstack.com"
+  CONTENTSTACK_API_KEY: ${{ secrets.CONTENTSTACK_API_KEY }}
+  CONTENTSTACK_DELIVERY_TOKEN: ${{ secrets.CONTENTSTACK_DELIVERY_TOKEN }}
 
 jobs:
   build:
