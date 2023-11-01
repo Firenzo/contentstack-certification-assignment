@@ -1,11 +1,10 @@
 ---
-import NavButton from "../components/NavButton.astro";
-import Header from "../components/Header.astro";
 import PokemonBaseInfo from "../components/PokemonBaseInfo.astro";
 import Footer from "../components/Footer.astro";
 import BackButton from "../components/BackButton.astro";
 import PokemonImage from "../assets/images/pokemon/0905Enamorus2.png";
 import { setRoute } from "../utils";
+import data from "../mappers/layouts/Pokedex";
 
 interface Props {
   headTitle: string;
@@ -13,7 +12,7 @@ interface Props {
 
 const { headTitle } = Astro.props;
 const currentYear = new Date().getFullYear();
-const pokedexURL = setRoute("/pokedex");
+const pokedexURL = setRoute(data.url);
 ---
 
 <!doctype html>
@@ -33,7 +32,7 @@ const pokedexURL = setRoute("/pokedex");
   </head>
   <body>
     <header>
-      <BackButton href={pokedexURL} />
+      <BackButton href={pokedexURL} label={data.backButtonLabel} />
     </header>
     <div class="pokedex-layout flex-container">
       <PokemonBaseInfo
@@ -46,13 +45,9 @@ const pokedexURL = setRoute("/pokedex");
       />
       <slot />
     </div>
-    <Footer
-      text={`All content & design © PokemonPrime, ${currentYear}. Pokémon images & names © 1995-${currentYear} Nintendo/Game Freak.`}
-    />
+    <Footer text={data.footerText} />
   </body>
 </html>
-
-<style scoped lang="scss"></style>
 
 <style is:global lang="scss">
   @use "../styles/breakpoints.scss" as *;

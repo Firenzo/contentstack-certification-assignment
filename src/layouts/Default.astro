@@ -1,8 +1,7 @@
 ---
-import NavButton from "../components/NavButton.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { getSiteBaseURL } from "../utils/index";
+import data from "../mappers/layouts/Default";
 
 interface Props {
   headTitle: string;
@@ -13,7 +12,6 @@ const currentYear = new Date().getFullYear();
 const hostURL = process.env.HOST_URL;
 const sitePath = process.env.SITE_PATH;
 const nodeEnv = process.env.NODE_ENV;
-const abc = getSiteBaseURL();
 ---
 
 <!doctype html>
@@ -33,16 +31,11 @@ const abc = getSiteBaseURL();
   </head>
   <body>
     <h1>
-      Site: {hostURL} | Base: {sitePath} | Env: {nodeEnv} | SiteBaseURL: {abc}
+      Site: {hostURL} | Base: {sitePath} | Env: {nodeEnv}
     </h1>
-    <Header
-      title="PokemonPrime"
-      text="Stay in the Loop with Pokémon: Your Daily Dose of PokéNews & Real-Time Data Updates!"
-    />
+    <Header title={data.siteTitle} text={data.tagline} />
     <slot />
-    <Footer
-      text={`All content & design © PokemonPrime, ${currentYear}. Pokémon images & names © 1995-${currentYear} Nintendo/Game Freak.`}
-    />
+    <Footer text={data.footerText} />
   </body>
 </html>
 

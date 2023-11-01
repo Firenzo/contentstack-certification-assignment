@@ -3,16 +3,17 @@ import ArrowLeft from "../assets/icons/arrow-left-solid.svg?raw";
 
 interface Props {
   href: string;
+  label: string;
 }
 
-const { href } = Astro.props;
+const { href, label } = Astro.props;
 ---
 
 <div class="container">
   <div class="backButton margin-top-2 margin-bottom-2">
     <a href={href}>
       <Fragment set:html={ArrowLeft} />
-      <span>Pokedex</span>
+      <span>{label}</span>
     </a>
   </div>
 </div>

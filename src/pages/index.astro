@@ -1,4 +1,6 @@
 ---
+import { Stack } from "../utils";
+import { setRoute } from "../utils";
 import Default from "../layouts/Default.astro";
 import SimpleTextBlock from "../components/SimpleTextBlock.astro";
 import ZebraStripe from "../components/ZebraStripe.astro";
@@ -11,82 +13,96 @@ import NewsItem from "../components/NewsItem.astro";
 import newsImage from "../assets/images/team-rocket-blasting-off.jpg";
 import Navigation from "../components/Navigation.astro";
 import LatestNewsBlock from "../components/LatestNewsBlock.astro";
-import { setRoute } from "../utils";
-
-const text = `Introducing "PokemonPrime: Your Portal to Pokémon World Updates!" Our website is
-    your one-stop destination for all things Pokémon. Stay informed with the
-    latest news, discoveries, and adventures straight from the Pokémon world.
-    Our global network of Pokémon researchers and journalists ensures real-time
-    updates, revealing the newest Pokémon data, news and events. Explore our
-    comprehensive Pokémon database, filled with detailed information on each
-    creature. Be it regional variants, moves, or evolutions – you'll find it
-    here. Our commitment to accuracy means updates occur the moment new
-    information surfaces. Join the Pokémon community and embark on your journey
-    with PokemonPrime as your trusty companion!`;
+import data from "../mappers/pages/Home";
 
 const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
 const description = `Enarmorus, when it flies to this land from across the sea, the bitter winter comes to an end. According to legend, this Pokémon’s love gives rise to the budding of fresh life across Hisui.`;
 const newsItemURL = setRoute("/news/team-rocket");
 ---
 
-<Default headTitle="PokemonPrime">
+<Default headTitle={data.siteTitle}>
   <main>
     <Navigation />
-    <ZebraStripe>
-      <SimpleTextBlock title="Welcome" text={text} />
-    </ZebraStripe>
 
-    <ZebraStripe isDark={true}>
-      <LatestNewsBlock title="Latest News">
-        <Slider>
-          <SliderItem>
-            <NewsItem
-              title="Team Rocket is blasting off again!"
-              publicationDate="14-02-1995"
-              description={newsText}
-              image={newsImage}
-              imageAltText="image alt text"
-              href={newsItemURL}
-            />
-          </SliderItem>
+    {
+      data.pageContent.map((contentBlock) => {
+        const key = Object.keys(contentBlock)[0];
+        if (key === "simple_text_block") {
+          return (
+            <ZebraStripe>
+              <SimpleTextBlock
+                title={contentBlock[key].title}
+                text={contentBlock[key].introduction}
+              />
+            </ZebraStripe>
+          );
+        }
 
-          <SliderItem>
-            <NewsItem
-              title="Team Rocket is blasting off again!"
-              publicationDate="14-02-1995"
-              description={newsText}
-              image={newsImage}
-              imageAltText="image alt text"
-              href={newsItemURL}
-            />
-          </SliderItem>
+        if (key === "latest_news") {
+          return (
+            <ZebraStripe isDark={true}>
+              <LatestNewsBlock title={contentBlock[key].title}>
+                <Slider>
+                  <SliderItem>
+                    <NewsItem
+                      title="Team Rocket is blasting off again!"
+                      publicationDate="14-02-1995"
+                      description={newsText}
+                      image={newsImage}
+                      imageAltText="image alt text"
+                      href={newsItemURL}
+                    />
+                  </SliderItem>
 
-          <SliderItem>
-            <NewsItem
-              title="Team Rocket is blasting off again!"
-              publicationDate="14-02-1995"
-              description={newsText}
-              image={newsImage}
-              imageAltText="image alt text"
-              href={newsItemURL}
-            />
-          </SliderItem>
-        </Slider>
-      </LatestNewsBlock>
-    </ZebraStripe>
+                  <SliderItem>
+                    <NewsItem
+                      title="Team Rocket is blasting off again!"
+                      publicationDate="14-02-1995"
+                      description={newsText}
+                      image={newsImage}
+                      imageAltText="image alt text"
+                      href={newsItemURL}
+                    />
+                  </SliderItem>
 
-    <ZebraStripe>
-      <PokemonDataBlock title="Pokemon Data">
-        <PokemonInfoBlock
-          title="Latest Discovery"
-          number={905}
-          description={description}
-          name="Enamorus"
-          image={Enamorus}
-          primaryType="fairy"
-          secondaryType="flying"
-        />
-      </PokemonDataBlock>
-    </ZebraStripe>
+                  <SliderItem>
+                    <NewsItem
+                      title="Team Rocket is blasting off again!"
+                      publicationDate="14-02-1995"
+                      description={newsText}
+                      image={newsImage}
+                      imageAltText="image alt text"
+                      href={newsItemURL}
+                    />
+                  </SliderItem>
+                </Slider>
+              </LatestNewsBlock>
+            </ZebraStripe>
+          );
+        }
+
+        if (key === "pokemon_data_block") {
+          return (
+            <ZebraStripe>
+              <PokemonDataBlock title={contentBlock[key].title}>
+                <PokemonInfoBlock
+                  title={contentBlock[key].pokemon_info_title}
+                  number={905}
+                  description={description}
+                  name={"pokemons"}
+                  image={Enamorus}
+                  primaryType="fairy"
+                  secondaryType="flying"
+                />
+              </PokemonDataBlock>
+            </ZebraStripe>
+          );
+        }
+      })
+    }
   </main>
 </Default>
+
+<script define:vars={{ data }}>
+  console.log(data);
+</script>
