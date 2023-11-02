@@ -1,5 +1,5 @@
 alias dev="bun dev"
 alias install="bun install"
-alias pipeline="open https://github.com/Firenzo/contentstack-certification-assignment/actions"
+alias pipeline="open https://app.netlify.com/sites/voluble-capybara-20920e/deploys"
 alias gp="git push"
 alias gpp="git push && sleep 1 && pipeline"
