@@ -8,10 +8,6 @@ interface Props {
 }
 
 const { headTitle } = Astro.props;
-const currentYear = new Date().getFullYear();
-const hostURL = process.env.HOST_URL;
-const sitePath = process.env.SITE_PATH;
-const nodeEnv = process.env.NODE_ENV;
 ---
 
 <!doctype html>
@@ -30,9 +26,6 @@ const nodeEnv = process.env.NODE_ENV;
     <title>{headTitle}</title>
   </head>
   <body>
-    <h1>
-      Site: {hostURL} | Base: {sitePath} | Env: {nodeEnv}
-    </h1>
     <Header title={data.siteTitle} text={data.tagline} />
     <slot />
     <Footer text={data.footerText} />
