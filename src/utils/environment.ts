@@ -10,7 +10,7 @@ export const Environment = {
 
 export const getSiteBaseURL = (): string => {
   if (Environment.isProd()) {
-    return `${process.env.HOST_URL}${process.env.SITE_PATH}`;
+    return `${process.env.HOST_URL}`;
   }
   return "";
 };
