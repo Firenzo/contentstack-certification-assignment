@@ -1,5 +1,4 @@
 ---
-import { Stack } from "../utils";
 import { setRoute } from "../utils";
 import Default from "../layouts/Default.astro";
 import SimpleTextBlock from "../components/SimpleTextBlock.astro";
@@ -14,6 +13,10 @@ import newsImage from "../assets/images/team-rocket-blasting-off.jpg";
 import Navigation from "../components/Navigation.astro";
 import LatestNewsBlock from "../components/LatestNewsBlock.astro";
 import data from "../mappers/pages/Home";
+import { Stack } from "../utils";
+
+const Query = Stack.ContentType("site_info").Query();
+const siteInfo = await Query.toJSON().find();
 
 const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
 const description = `Enarmorus, when it flies to this land from across the sea, the bitter winter comes to an end. According to legend, this Pokémon’s love gives rise to the budding of fresh life across Hisui.`;
@@ -103,6 +106,7 @@ const newsItemURL = setRoute("/news/team-rocket");
   </main>
 </Default>
 
-<script define:vars={{ data }}>
+<script define:vars={{ data, siteInfo }}>
   console.log(data);
+  console.log(siteInfo);
 </script>
