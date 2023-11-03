@@ -4,3 +4,4 @@ alias pipeline="open https://app.netlify.com/sites/voluble-capybara-20920e/deplo
 alias gp="git push"
 alias gpp="git push && sleep 1 && pipeline"
 alias prod="open https://main--voluble-capybara-20920e.netlify.app"
+alias csdoc="open https://www.contentstack.com/docs/developers/sdks/content-delivery-sdk/javascript-browser/reference"
