@@ -1,0 +1,95 @@
+---
+import { debugLog, setRoute } from "../utils";
+import SimpleTextBlock from "../components/SimpleTextBlock.astro";
+import NewsList from "../components/NewsList.astro";
+import ZebraStripe from "../components/ZebraStripe.astro";
+import Slider from "../components/Slider.astro";
+import SliderItem from "../components/SliderItem.astro";
+import PokemonDataBlock from "../components/PokemonDataBlock.astro";
+import PokemonInfoBlock from "../components/PokemonInfoBlock.astro";
+import NewsItem from "../components/NewsItem.astro";
+import LatestNewsBlock from "../components/LatestNewsBlock.astro";
+
+interface Props {
+  pageContent: any;
+}
+
+const { pageContent } = Astro.props;
+---
+
+<>
+  {
+    pageContent.map((contentBlock) => {
+      const key = Object.keys(contentBlock)[0];
+      if (key === "simple_text_block") {
+        return (
+          <ZebraStripe>
+            <SimpleTextBlock
+              title={contentBlock[key].title}
+              text={contentBlock[key].introduction}
+            />
+          </ZebraStripe>
+        );
+      }
+
+      if (key === "latest_news") {
+        const newsArticles = contentBlock[key].news_articles;
+
+        return (
+          <ZebraStripe isDark={true}>
+            <LatestNewsBlock title={contentBlock[key].title}>
+              <Slider>
+                {newsArticles.map((article) => {
+                  return (
+                    <SliderItem>
+                      <NewsItem
+                        title={article.title}
+                        date={article.created_at}
+                        description={article.introduction}
+                        image={article.image.url}
+                        imageAltText="image alt text"
+                        href={setRoute(article.url)}
+                      />
+                    </SliderItem>
+                  );
+                })}
+              </Slider>
+            </LatestNewsBlock>
+          </ZebraStripe>
+        );
+      }
+
+      if (key === "pokemon_data_block") {
+        const pokemonData = contentBlock[key].pokemon[0];
+        const pokemonTypes = pokemonData.types.map((type) => type.title);
+        return (
+          <ZebraStripe>
+            <PokemonDataBlock title={contentBlock[key].title}>
+              <PokemonInfoBlock
+                title={contentBlock[key].pokemon_info_title}
+                number={pokemonData.pokemon_number}
+                description={contentBlock[key].description}
+                name={pokemonData.title}
+                imageUrl={pokemonData.image.url}
+                pokemonTypes={pokemonTypes}
+                backgroundColor={pokemonData.background_color}
+              />
+            </PokemonDataBlock>
+          </ZebraStripe>
+        );
+      }
+
+      if (key === "news_list") {
+        const newsListData = contentBlock[key];
+        return (
+          <ZebraStripe removeMarginBottom={true} isDark={true}>
+            <NewsList
+              newsItems={newsListData.newsItems}
+              title={newsListData.title}
+            />
+          </ZebraStripe>
+        );
+      }
+    })
+  }
+</>

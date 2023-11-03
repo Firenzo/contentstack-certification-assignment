@@ -1,21 +1,23 @@
 ---
 import Default from "../../layouts/Default.astro";
-import SimpleTextBlock from "../../components/SimpleTextBlock.astro";
+import PageContent from "../../components/PageContent.astro";
 import ZebraStripe from "../../components/ZebraStripe.astro";
 import Navigation from "../../components/Navigation.astro";
 import NewsList from "../../components/NewsList.astro";
+import getNewsPageData from "../../mappers/pages/News";
+
+const pageData = await getNewsPageData();
 
 const text = `Enter the enchanting world of Pokémon with our concise news coverage. Whether you're a devoted Trainer or new to the game, our page keeps you updated on the latest in the Pokémon universe. From new regions to legendary encounters, events, evolutions, and controversies, we've got it all. Dive in and stay informed!`;
 ---
 
-<Default headTitle="News overview | PokemonPrime">
+<Default headTitle={`News overview | ${pageData.siteTitle}`}>
   <main class="padding-bottom-0">
     <Navigation />
-    <ZebraStripe>
-      <SimpleTextBlock title="News" text={text} />
-    </ZebraStripe>
-    <ZebraStripe removeMarginBottom={true} isDark={true}>
-      <NewsList />
-    </ZebraStripe>
+    <PageContent pageContent={pageData.pageContent} />
   </main>
 </Default>
+
+<script define:vars={{ pageData }}>
+  console.log(pageData);
+</script>

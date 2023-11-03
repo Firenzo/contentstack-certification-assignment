@@ -3,6 +3,13 @@ import LinkCard from "./LinkCard.astro";
 import NewsImage from "../assets/images/team-rocket-blasting-off.jpg";
 import { setRoute } from "../utils";
 
+interface Props {
+  newsItems: any;
+  title: string;
+}
+
+const { newsItems, title } = Astro.props;
+
 const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
 const items = [1, 2, 3, 4, 5, 6];
 const newsItemURL = setRoute("/news/team-rocket");
@@ -10,17 +17,17 @@ const newsItemURL = setRoute("/news/team-rocket");
 
 <div class="news-list">
   <div class="container">
-    <h2>Featured news articles</h2>
+    <h2>{title}</h2>
     <div class="news-list-items">
       {
-        items.map(() => (
+        newsItems.map((article) => (
           <LinkCard
-            title="Team Rocket is blasting off again"
-            publicationDate="14-02-1995"
-            description={newsText}
-            image={NewsImage}
+            title={article.title}
+            date={article.created_at}
+            description={article.introduction}
+            image={article.image.url}
             imageAltText="this is an image"
-            href={newsItemURL}
+            href={setRoute(article.url)}
           />
         ))
       }
