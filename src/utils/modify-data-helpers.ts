@@ -21,3 +21,13 @@ export const hasReferenceFields = (fieldsWithArrayValue) => {
     return isMatch;
   });
 };
+
+export const getContentBlocksWithReferences = (content) => {
+  return content.filter((contentBlock) => {
+    // get content block key
+    const key = Object.keys(contentBlock)[0];
+    const fieldsWithArrayValue = getFieldsWithArrayValue(contentBlock[key]);
+    const isMatch = hasReferenceFields(fieldsWithArrayValue);
+    return isMatch;
+  });
+};

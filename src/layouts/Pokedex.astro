@@ -4,15 +4,15 @@ import Footer from "../components/Footer.astro";
 import BackButton from "../components/BackButton.astro";
 import PokemonImage from "../assets/images/pokemon/0905Enamorus2.png";
 import { setRoute } from "../utils";
-import data from "../mappers/layouts/Pokedex";
-
+import getPokedexLayoutData from "../mappers/layouts/Pokedex";
+const layoutData = await getPokedexLayoutData();
 interface Props {
   headTitle: string;
 }
 
 const { headTitle } = Astro.props;
 const currentYear = new Date().getFullYear();
-const pokedexURL = setRoute(data.url);
+const pokedexURL = setRoute(layoutData.url);
 ---
 
 <!doctype html>
@@ -32,7 +32,7 @@ const pokedexURL = setRoute(data.url);
   </head>
   <body>
     <header>
-      <BackButton href={pokedexURL} label={data.backButtonLabel} />
+      <BackButton href={pokedexURL} label={layoutData.backButtonLabel} />
     </header>
     <div class="pokedex-layout flex-container">
       <PokemonBaseInfo
@@ -45,7 +45,7 @@ const pokedexURL = setRoute(data.url);
       />
       <slot />
     </div>
-    <Footer text={data.footerText} />
+    <Footer text={layoutData.footerText} />
   </body>
 </html>
 

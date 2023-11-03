@@ -1,5 +1,5 @@
 ---
-import { setRoute } from "../utils";
+import { Stack, debugLog, setRoute } from "../utils";
 import Default from "../layouts/Default.astro";
 import SimpleTextBlock from "../components/SimpleTextBlock.astro";
 import ZebraStripe from "../components/ZebraStripe.astro";
@@ -12,23 +12,21 @@ import NewsItem from "../components/NewsItem.astro";
 import newsImage from "../assets/images/team-rocket-blasting-off.jpg";
 import Navigation from "../components/Navigation.astro";
 import LatestNewsBlock from "../components/LatestNewsBlock.astro";
-import data from "../mappers/pages/Home";
-import { Stack } from "../utils";
+import getHomePageData from "../mappers/pages/Home";
 
-const Query = Stack.ContentType("site_info").Query();
-const siteInfo = await Query.toJSON().find();
+const pageData = await getHomePageData();
 
 const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
 const description = `Enarmorus, when it flies to this land from across the sea, the bitter winter comes to an end. According to legend, this Pokémon’s love gives rise to the budding of fresh life across Hisui.`;
 const newsItemURL = setRoute("/news/team-rocket");
 ---
 
-<Default headTitle={data.siteTitle}>
+<Default headTitle={pageData.siteTitle}>
   <main>
     <Navigation />
 
     {
-      data.pageContent.map((contentBlock) => {
+      pageData.pageContent.map((contentBlock) => {
         const key = Object.keys(contentBlock)[0];
         if (key === "simple_text_block") {
           return (
@@ -42,42 +40,26 @@ const newsItemURL = setRoute("/news/team-rocket");
         }
 
         if (key === "latest_news") {
+          const newsArticles = contentBlock[key].news_articles;
+
           return (
             <ZebraStripe isDark={true}>
               <LatestNewsBlock title={contentBlock[key].title}>
                 <Slider>
-                  <SliderItem>
-                    <NewsItem
-                      title="Team Rocket is blasting off again!"
-                      publicationDate="14-02-1995"
-                      description={newsText}
-                      image={newsImage}
-                      imageAltText="image alt text"
-                      href={newsItemURL}
-                    />
-                  </SliderItem>
-
-                  <SliderItem>
-                    <NewsItem
-                      title="Team Rocket is blasting off again!"
-                      publicationDate="14-02-1995"
-                      description={newsText}
-                      image={newsImage}
-                      imageAltText="image alt text"
-                      href={newsItemURL}
-                    />
-                  </SliderItem>
-
-                  <SliderItem>
-                    <NewsItem
-                      title="Team Rocket is blasting off again!"
-                      publicationDate="14-02-1995"
-                      description={newsText}
-                      image={newsImage}
-                      imageAltText="image alt text"
-                      href={newsItemURL}
-                    />
-                  </SliderItem>
+                  {newsArticles.map((article) => {
+                    return (
+                      <SliderItem>
+                        <NewsItem
+                          title={article.title}
+                          date={article.created_at}
+                          description={article.introduction}
+                          image={article.image.url}
+                          imageAltText="image alt text"
+                          href={article.url}
+                        />
+                      </SliderItem>
+                    );
+                  })}
                 </Slider>
               </LatestNewsBlock>
             </ZebraStripe>
@@ -85,17 +67,19 @@ const newsItemURL = setRoute("/news/team-rocket");
         }
 
         if (key === "pokemon_data_block") {
+          const pokemonData = contentBlock[key].pokemon[0];
+          const pokemonTypes = pokemonData.types.map((type) => type.title);
           return (
             <ZebraStripe>
               <PokemonDataBlock title={contentBlock[key].title}>
                 <PokemonInfoBlock
                   title={contentBlock[key].pokemon_info_title}
-                  number={905}
-                  description={description}
-                  name={"pokemons"}
-                  image={Enamorus}
-                  primaryType="fairy"
-                  secondaryType="flying"
+                  number={pokemonData.pokemon_number}
+                  description={contentBlock[key].description}
+                  name={pokemonData.title}
+                  imageUrl={pokemonData.image.url}
+                  pokemonTypes={pokemonTypes}
+                  backgroundColor={pokemonData.background_color}
                 />
               </PokemonDataBlock>
             </ZebraStripe>
@@ -106,7 +90,7 @@ const newsItemURL = setRoute("/news/team-rocket");
   </main>
 </Default>
 
-<script define:vars={{ data, siteInfo }}>
-  console.log(data);
-  console.log(siteInfo);
+<script define:vars={{ pageData }}>
+  console.log(pageData);
+  console.log(pageData.pageContent[1].latest_news.news_articles[0]);
 </script>

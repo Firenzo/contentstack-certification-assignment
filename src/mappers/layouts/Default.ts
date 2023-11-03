@@ -1,9 +1,12 @@
-import globalData from "../global/Global";
+import getGlobalData from "../global/Global";
 
-const defaultLayoutData: any = {};
+const getDefaultLayoutData = async () => {
+  const globalData = await getGlobalData();
+  const defaultLayoutData: any = {};
+  defaultLayoutData.siteTitle = globalData.siteTitle;
+  defaultLayoutData.tagline = globalData.tagline;
+  defaultLayoutData.footerText = globalData.footerText;
+  return defaultLayoutData;
+};
 
-defaultLayoutData.siteTitle = globalData.siteTitle;
-defaultLayoutData.tagline = globalData.tagline;
-defaultLayoutData.footerText = globalData.footerText;
-
-export default defaultLayoutData;
+export default getDefaultLayoutData;

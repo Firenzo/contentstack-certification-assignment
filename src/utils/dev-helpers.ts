@@ -1,5 +1,7 @@
-export const debugLog = (message) => {
+export const debugLog = (...message) => {
   console.log("@@@@@@@@@@@@@@@@@@@@@@@@");
-  console.log(message);
+  message.forEach((m) => {
+    console.log(m);
+  });
   console.log("@@@@@@@@@@@@@@@@@@@@@@@@");
 };

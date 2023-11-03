@@ -1,28 +1,49 @@
 ---
 import type { PokemonType } from "../types/types";
-import { toPokemonNumber, setRoute } from "../utils";
+import {
+  toPokemonNumber,
+  setRoute,
+  hexToHSL,
+  defineHoverColor,
+  defineTextColor,
+  defineTypeBgColor,
+} from "../utils";
 
-interface Props<Type extends PokemonType | undefined = undefined> {
+import Enamorus from "../assets/images/0905Enamorus2.png";
+
+interface Props {
   title: string;
   number: number;
   name: string;
-  primaryType: Type;
-  secondaryType: Type extends undefined ? Type : Exclude<PokemonType, Type>;
+  pokemonTypes: PokemonType[];
   description: string;
-  image: ImageMetadata;
+  imageUrl: string;
+  backgroundColor: string;
+  textColor: string;
 }
 
-const { title, number, name, primaryType, secondaryType, description, image } =
-  Astro.props;
+const {
+  title,
+  number,
+  name,
+  pokemonTypes,
+  description,
+  imageUrl,
+  backgroundColor,
+} = Astro.props;
 
 const pokemonNumber = toPokemonNumber(number);
 const pokemonURL = setRoute("/pokedex/enamorus");
+const bg = hexToHSL(backgroundColor);
+const hoverBg = defineHoverColor(bg);
+const textColor = defineTextColor(bg);
+const typeBg = defineTypeBgColor(bg);
 ---
 
 <a href={pokemonURL} class="pokemon-info-block">
   <h3 class="pokemon-info-block-title margin-bottom-0">{title}</h3>
   <div class="image">
-    <img src={image.src} alt={`image of ${name}`} />
+    <img src={imageUrl} alt={`image of ${name}`} />
   </div>
   <div class="pokemon-info">
     <div class="pokemon-name-and-number">
@@ -30,8 +51,8 @@ const pokemonURL = setRoute("/pokedex/enamorus");
       <p class="pokemon-name">{name}</p>
     </div>
     <div class="pokemon-types">
-      <span class="pokemon-type">{primaryType}</span>
-      <span class="pokemon-type">{secondaryType}</span>
+      <span class="pokemon-type">{pokemonTypes[0]}</span>
+      {pokemonTypes[1] && <span class="pokemon-type">{pokemonTypes[1]}</span>}
     </div>
     <div class="pokemon-description mw-text">
       <p>{description}</p>
@@ -40,7 +61,7 @@ const pokemonURL = setRoute("/pokedex/enamorus");
   <slot />
 </a>
 
-<style scoped lang="scss">
+<style scoped lang="scss" define:vars={{ bg, hoverBg, textColor, typeBg }}>
   @use "../styles/breakpoints.scss" as *;
 
   @mixin reset-grid-properties {
@@ -49,7 +70,8 @@ const pokemonURL = setRoute("/pokedex/enamorus");
   }
 
   .pokemon-info-block {
-    background: #f2a4c0;
+    background: var(--bg);
+
     border-radius: 30px;
     padding: 1.5rem 1.25rem 2rem;
     margin-bottom: 2rem;
@@ -58,15 +80,16 @@ const pokemonURL = setRoute("/pokedex/enamorus");
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(3, auto);
 
-    color: black;
+    color: var(--textColor);
     text-decoration: none;
 
     &:hover {
-      background: #d88ba7;
+      background: var(--hoverBg);
     }
 
     @include mq-up("big-tablet") {
       grid-template-columns: 250px auto;
+      column-gap: 1rem;
     }
 
     .pokemon-info-block-title {
@@ -114,10 +137,12 @@ const pokemonURL = setRoute("/pokedex/enamorus");
     .pokemon-name-and-number {
       font-family: "Mitr", sans-serif;
       margin-bottom: 1rem;
+      margin-top: 1rem;
 
       .pokemon-number {
         font-weight: 300;
         font-size: 22px;
+        margin-bottom: 0.5rem;
       }
       .pokemon-name {
         font-weight: 500;
@@ -131,10 +156,10 @@ const pokemonURL = setRoute("/pokedex/enamorus");
 
       .pokemon-type {
         display: block;
-        background: white;
+        background: var(--typeBg);
         border-radius: 300px;
         padding: 0.5rem 1.5rem;
-        color: #c86b8d;
+        color: var(--bg);
 
         &:nth-of-type(2) {
           margin-left: 0.75rem;

@@ -10,8 +10,17 @@ export const Stack = Contentstack.Stack({
 export { debugLog } from "./dev-helpers";
 export { Environment, getSiteBaseURL, setRoute } from "./environment";
 export { toPokemonNumber, createReplaceObjects } from "./modify-data";
+export { toDateString } from "./datetime";
+export {
+  hexToHSL,
+  getHSLValues,
+  defineHoverColor,
+  defineTextColor,
+  defineTypeBgColor,
+} from "./style-helpers";
 export {
   getFieldsWithArrayValue,
   getReferenceFields,
   hasReferenceFields,
+  getContentBlocksWithReferences,
 } from "./modify-data-helpers";

@@ -7,16 +7,6 @@ import newsImage from "../../assets/images/team-rocket-blasting-off.jpg";
 const text = `Enter the enchanting world of Pokémon with our concise news coverage. Whether you're a devoted Trainer or new to the game, our page keeps you updated on the latest in the Pokémon universe. From new regions to legendary encounters, events, evolutions, and controversies, we've got it all. Dive in and stay informed!`;
 const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
 
-export function getStaticPaths() {
-  return [
-    {
-      params: {
-        article: "team-rocket",
-      },
-    },
-  ];
-}
-
 const { article } = Astro.params;
 ---
 

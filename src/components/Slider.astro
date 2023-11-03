@@ -54,7 +54,9 @@ import chevronRight from "../assets/icons/chevron-right-solid.svg?raw";
       const propertyValue =
         this.currentItem === 1
           ? "0"
-          : `calc(-${this.currentItem - 1}00% - ${this.currentItem - 1}00px)`;
+          : `calc(-${(this.currentItem - 1) * 100}% - ${
+              (this.currentItem - 1) * 150
+            }px)`;
 
       animate(".slider-item", { left: propertyValue }, { duration: 0.5 });
     }

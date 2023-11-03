@@ -1,7 +1,9 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import data from "../mappers/layouts/Default";
+import getDefaulLayoutData from "../mappers/layouts/Default";
+
+const layoutData = await getDefaulLayoutData();
 
 interface Props {
   headTitle: string;
@@ -26,9 +28,9 @@ const { headTitle } = Astro.props;
     <title>{headTitle}</title>
   </head>
   <body>
-    <Header title={data.siteTitle} text={data.tagline} />
+    <Header title={layoutData.siteTitle} text={layoutData.tagline} />
     <slot />
-    <Footer text={data.footerText} />
+    <Footer text={layoutData.footerText} />
   </body>
 </html>
 

@@ -1,5 +1,5 @@
 import { Stack } from "./index";
-import { getFieldsWithArrayValue } from "./index";
+import { getFieldsWithArrayValue, getReferenceFields } from "./index";
 
 export const toPokemonNumber = (number: number) => {
   const numberLength = number.toString().length;
@@ -37,32 +37,27 @@ export const createReplaceObjects = async (
     );
 
     // get reference fields
-    const referenceFields = fieldsWithArrayValue.filter((item) => {
-      const match = item[1].filter((checkItem) => {
-        return "uid" in checkItem && "_content_type_uid" in checkItem;
-      });
-      return match.length >= 1;
-    });
+    const referenceFields = getReferenceFields(fieldsWithArrayValue);
 
     // Get data from reference
     const dataToChangeArray = [];
     for (const referenceField of referenceFields) {
-      const newDataArray = await Promise.all(
+      const newData = await Promise.all(
         referenceField[1].map(async (references) => {
           const Query = Stack.ContentType(references._content_type_uid).Entry(
             references.uid,
           );
-          const data = await Query.fetch();
+          const data = await Query.includeReference("types").toJSON().fetch();
           return data;
         }),
       );
 
-      const dataToChangeObject = {
+      const refReplacementObj = {
         key: referenceField[0],
-        newData: newDataArray,
+        newData: newData,
       };
 
-      dataToChangeArray.push(dataToChangeObject);
+      dataToChangeArray.push(refReplacementObj);
     }
 
     const returnObj = {
