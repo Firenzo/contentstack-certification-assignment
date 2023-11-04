@@ -17,6 +17,7 @@ export {
   defineHoverColor,
   defineTextColor,
   defineTypeBgColor,
+  increaseLightness,
 } from "./style-helpers";
 export {
   getFieldsWithArrayValue,

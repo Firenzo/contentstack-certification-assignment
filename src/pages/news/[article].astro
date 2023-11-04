@@ -3,38 +3,28 @@ import Default from "../../layouts/Default.astro";
 import NewsIntro from "../../components/NewsIntro.astro";
 import ZebraStripe from "../../components/ZebraStripe.astro";
 import Navigation from "../../components/Navigation.astro";
-import newsImage from "../../assets/images/team-rocket-blasting-off.jpg";
-const text = `Enter the enchanting world of Pokémon with our concise news coverage. Whether you're a devoted Trainer or new to the game, our page keeps you updated on the latest in the Pokémon universe. From new regions to legendary encounters, events, evolutions, and controversies, we've got it all. Dive in and stay informed!`;
-const newsText = `Team Rocket, the perennial troublemakers of the Pokémon universe, are once again blasting off into the horizon. With their classic motto and unwavering determination, Jessie, James, and Meowth are up to their mischievous antics, soaring into the sky, ensuring that they're never grounded for too long.`;
+import getNewsArticle from "../../mappers/pages/NewsDetail";
 
-const { article } = Astro.params;
+const article = await getNewsArticle(Astro.url.pathname);
+const headTitle = article.seoData?.meta_title ?? article.title;
+const metaDescription =
+  article.seoData?.meta_description ?? article.introduction;
 ---
 
-<Default headTitle="Team Rocket is blasting off again | PokemonPrime">
+<Default headTitle={headTitle} metaDescription={metaDescription}>
   <main>
     <Navigation />
 
     <ZebraStripe>
       <div class="news-detail-page">
         <NewsIntro
-          title="Team Rocket is blasting off again"
-          image={newsImage}
+          title={article.title}
+          image={article.image.url}
           imageAlt="A photo of Team Rocket blasting off"
-          text={newsText}
+          text={article.introduction}
         />
         <div class="news-detail-container">
-          <p>{newsText}</p>
-          <br /><br />
-          <p>{text}</p>
-          <p>{newsText}</p>
-          <br /><br />
-          <p>{text}</p>
-          <p>{newsText}</p>
-          <br /><br />
-          <p>{text}</p>
-          <p>{newsText}</p>
-          <br /><br />
-          <p>{text}</p>
+          <Fragment set:html={article.content} />
         </div>
       </div>
     </ZebraStripe>
@@ -43,7 +33,16 @@ const { article } = Astro.params;
 
 <style is:global lang="scss">
   .news-detail-container {
+    width: 90%;
     max-width: 800px !important;
     margin: auto;
+
+    p:not(:last-of-type) {
+      margin-bottom: 2rem;
+    }
   }
 </style>
+
+<script define:vars={{ article }}>
+  console.log(article);
+</script>

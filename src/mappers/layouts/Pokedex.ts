@@ -11,6 +11,7 @@ const getPokedexLayoutData = async () => {
     const result = await Query.toJSON().where("title", "Pokédex").findOne();
     pokedexLayoutData.backButtonLabel = result.title;
     pokedexLayoutData.url = result.url;
+    pokedexLayoutData.siteTitle = globalData.siteTitle;
   } catch (error) {
     console.log(error);
   }

@@ -1,18 +1,19 @@
 ---
-import PokemonBaseInfo from "../components/PokemonBaseInfo.astro";
 import Footer from "../components/Footer.astro";
 import BackButton from "../components/BackButton.astro";
-import PokemonImage from "../assets/images/pokemon/0905Enamorus2.png";
-import { setRoute } from "../utils";
+import { defineTextColor, hexToHSL, setRoute, debugLog } from "../utils";
 import getPokedexLayoutData from "../mappers/layouts/Pokedex";
+
 const layoutData = await getPokedexLayoutData();
 interface Props {
   headTitle: string;
+  backgroundColor: string;
 }
 
-const { headTitle } = Astro.props;
-const currentYear = new Date().getFullYear();
+const { headTitle, backgroundColor } = Astro.props;
 const pokedexURL = setRoute(layoutData.url);
+const bg = hexToHSL(backgroundColor);
+const backButtonTextColor = defineTextColor(bg);
 ---
 
 <!doctype html>
@@ -28,33 +29,35 @@ const pokedexURL = setRoute(layoutData.url);
       rel="stylesheet"
     />
     <meta name="generator" content={Astro.generator} />
-    <title>{headTitle}</title>
+    <title>
+      {
+        headTitle
+          ? `${headTitle} | ${layoutData.siteTitle}`
+          : layoutData.siteTitle
+      }
+    </title>
   </head>
   <body>
     <header>
-      <BackButton href={pokedexURL} label={layoutData.backButtonLabel} />
+      <BackButton
+        href={pokedexURL}
+        label={layoutData.backButtonLabel}
+        textColor={backButtonTextColor}
+      />
     </header>
     <div class="pokedex-layout flex-container">
-      <PokemonBaseInfo
-        name="Enamorus"
-        number={500}
-        primaryType="fairy"
-        secondaryType="flying"
-        image={PokemonImage}
-        imageAlt="Image of Enamorus"
-      />
       <slot />
     </div>
     <Footer text={layoutData.footerText} />
   </body>
 </html>
 
-<style is:global lang="scss">
+<style is:global lang="scss" define:vars={{ bg }}>
   @use "../styles/breakpoints.scss" as *;
   @use "../styles/global.scss";
 
   body {
-    background: #e7a7bf;
+    background: var(--bg);
   }
 
   @include mq-up("desktop") {
@@ -70,12 +73,6 @@ const pokedexURL = setRoute(layoutData.url);
     header {
       position: sticky;
       top: 1rem;
-    }
-  }
-  .backButton {
-    svg {
-      fill: white;
-      width: 30px;
     }
   }
 </style>

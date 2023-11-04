@@ -1,0 +1,67 @@
+---
+import { toPokemonNumber, increaseLightness, hexToHSL } from "../utils";
+interface Props {
+  pokemon: any;
+}
+
+const { pokemon } = Astro.props;
+const pokemonName = pokemon.title;
+const pokemonNumber = toPokemonNumber(pokemon.pokemon_number);
+const pokemonURL = pokemon.url;
+
+const pokemonBackgroundColor = hexToHSL(pokemon.background_color);
+const bg = increaseLightness(pokemonBackgroundColor);
+---
+
+<a href={pokemonURL} class="evolution-item">
+  <p class="evolution-type">{pokemon.evolution_stage}</p>
+
+  <div class="image">
+    <img src={pokemon.image.url} alt={`Image of ${pokemonName}`} />
+  </div>
+
+  <div class="name-and-number">
+    <p class="pokemon-number">
+      {pokemonNumber}
+    </p>
+    <p class="pokemon-name">{pokemonName}</p>
+  </div>
+</a>
+
+<style scoped lang="scss" define:vars={{ bg }}>
+  @use "../styles/breakpoints.scss" as *;
+  .evolution-item {
+    display: block;
+    max-width: 400px;
+    margin: auto;
+    margin-bottom: 2rem;
+    color: black;
+    text-decoration: none;
+
+    .evolution-type {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .name-and-number {
+      text-align: center;
+      .pokemon-name {
+        font-weight: bold;
+      }
+    }
+
+    .image {
+      padding: 1rem;
+      background: var(--bg);
+      border-radius: 15px;
+      height: 150px;
+      margin-bottom: 0.5rem;
+
+      img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+</style>

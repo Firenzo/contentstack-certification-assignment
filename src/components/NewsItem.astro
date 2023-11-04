@@ -65,10 +65,17 @@ const publicationDate = toDateString(date);
       border-radius: 30px;
       overflow: hidden;
       width: 93%;
-      max-width: 405px;
+      max-width: 400px;
+      height: 300px;
+      justify-content: stretch;
 
       @include mq-up("big-tablet") {
-        align-self: flex-start;
+        // height: auto;
+        align-self: stretch;
+      }
+      img {
+        height: 100%;
+        object-fit: cover;
       }
     }
 

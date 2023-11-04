@@ -70,12 +70,20 @@ export const defineHoverColor = (hslString: hslString) => {
 
 export const defineTextColor = (bgColor: hslString) => {
   const hslValues = getHSLValues(bgColor);
-  return hslValues?.lightness! >= 50 ? "black" : "white";
+  return hslValues?.lightness! >= 70 ? "black" : "white";
 };
 
 export const defineTypeBgColor = (bgColor: hslString) => {
   const hslValues = getHSLValues(bgColor);
-  return hslValues?.lightness! >= 50
+  return hslValues?.lightness! >= 70
     ? "rgba(0, 0, 0, 0.5)"
     : "rgba(255,255,255,0.8)";
+};
+
+export const increaseLightness = (bgColor: hslString) => {
+  const hslValues = getHSLValues(bgColor);
+  const h = hslValues?.hue;
+  const s = hslValues?.saturation;
+  const l = 90;
+  return `hsl(${h},${s}%,${90}%)`;
 };

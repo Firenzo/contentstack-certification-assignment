@@ -2,7 +2,7 @@
 interface Props {
   title: string;
   text: string;
-  image: ImageMetadata;
+  image: string;
   imageAlt: string;
 }
 
@@ -15,11 +15,11 @@ const { title, text, image, imageAlt } = Astro.props;
   </div>
 
   <div class="image margin-bottom-1">
-    <img src={image.src} alt={imageAlt} />
+    <img src={image} alt={imageAlt} />
   </div>
 
   <div class="news-detail-container">
-    <p class="mw-text">
+    <p class="introduction mw-text">
       {text}
     </p>
   </div>
@@ -29,12 +29,18 @@ const { title, text, image, imageAlt } = Astro.props;
       .image {
         background: #dadada;
         padding: 2rem 0;
+        margin-bottom: 2rem;
 
         img {
           border-radius: 30px;
           max-width: 630px;
           margin: auto;
         }
+      }
+
+      .introduction {
+        font-weight: bold;
+        margin-bottom: 3rem;
       }
     }
   </style>

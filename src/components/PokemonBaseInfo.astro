@@ -1,18 +1,25 @@
 ---
 import type { PokemonType } from "../types/types";
-import { toPokemonNumber } from "../utils";
-interface Props<Type extends PokemonType | undefined = undefined> {
+import {
+  defineHoverColor,
+  defineTextColor,
+  hexToHSL,
+  toPokemonNumber,
+} from "../utils";
+
+interface Props {
   name: string;
   number: number;
-  primaryType: Type;
-  secondaryType: Type extends undefined ? Type : Exclude<PokemonType, Type>;
-  image: ImageMetadata;
+  pokemonTypes: string;
+  typeColor: string;
+  image: string;
   imageAlt: string;
 }
 
-const { name, number, primaryType, secondaryType, image, imageAlt } =
-  Astro.props;
+const { name, number, pokemonTypes, image, imageAlt, typeColor } = Astro.props;
 const pokemonNumber = toPokemonNumber(number);
+const bg = hexToHSL(typeColor);
+const textColor = defineTextColor(bg);
 ---
 
 <div class="pokemon-base-info">
@@ -20,23 +27,23 @@ const pokemonNumber = toPokemonNumber(number);
     <p class="pokemon-number">{pokemonNumber}</p>
     <p class="pokemon-name">{name}</p>
     <div class="pokemon-types">
-      <span class="pokemon-type">{primaryType}</span>
-      <span class="pokemon-type">{secondaryType}</span>
+      <span class="pokemon-type">{pokemonTypes[0]}</span>
+      {pokemonTypes[1] && <span class="pokemon-type">{pokemonTypes[1]}</span>}
     </div>
   </div>
 
   <div class="pokemon-image">
     <div class="image">
-      <img src={image.src} alt={imageAlt} />
+      <img src={image} alt={imageAlt} />
     </div>
   </div>
 </div>
 
-<style scoped lang="scss">
+<style scoped lang="scss" define:vars={{ bg, textColor }}>
   @use "../styles/breakpoints.scss" as *;
 
   .pokemon-base-info {
-    color: white;
+    color: var(--textColor);
     width: 90%;
     margin: auto;
 
@@ -89,7 +96,7 @@ const pokemonNumber = toPokemonNumber(number);
           background: white;
           border-radius: 300px;
           padding: 0.5rem 1.5rem;
-          color: #c86b8d;
+          color: var(--bg);
 
           &:nth-of-type(2) {
             margin-left: 0.75rem;
