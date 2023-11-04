@@ -2,7 +2,7 @@ export const toDateString = (datetime) => {
   const now = Date.now();
   const dt = new Date(datetime);
   const dtTimeStamp = dt.getTime();
-  const day = dt.getDay();
+  const day = dt.getDate();
   const month = dt.getMonth() - 1;
   const year = dt.getFullYear();
   const hours = dt.getHours();
