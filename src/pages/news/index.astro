@@ -11,7 +11,10 @@ const pageData = await getNewsPageData();
 const text = `Enter the enchanting world of Pokémon with our concise news coverage. Whether you're a devoted Trainer or new to the game, our page keeps you updated on the latest in the Pokémon universe. From new regions to legendary encounters, events, evolutions, and controversies, we've got it all. Dive in and stay informed!`;
 ---
 
-<Default headTitle={`News overview | ${pageData.siteTitle}`}>
+<Default
+  headTitle={pageData.seoData.meta_title}
+  metaDescription={pageData.seoData.meta_description}
+>
   <main class="padding-bottom-0">
     <Navigation />
     <PageContent pageContent={pageData.pageContent} />

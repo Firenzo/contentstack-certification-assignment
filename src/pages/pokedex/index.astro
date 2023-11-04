@@ -1,21 +1,27 @@
 ---
 import Default from "../../layouts/Default.astro";
 import SimpleTextBlock from "../../components/SimpleTextBlock.astro";
+import PageContent from "../../components/PageContent.astro";
 import ZebraStripe from "../../components/ZebraStripe.astro";
 import Navigation from "../../components/Navigation.astro";
 import PokemonList from "../../components/PokemonList.astro";
+import getPokedexPageData from "../../mappers/pages/Pokedex";
+
+const pageData = await getPokedexPageData();
 
 const text = `The Pokedex, a vital tool for Pokémon enthusiasts, is your gateway to a world filled with captivating creatures. In these pages, you'll explore details about each species, including their types, habitats, behaviors, and evolutions. Whether you're a Trainer, a researcher, or a dedicated collector, the Pokedex is your faithful companion, offering essential data on the Pokémon you encounter. It's your key to unlocking the mysteries of this diverse and enchanting realm. Get ready to embark on an exciting journey of exploration and discovery with the Pokedex as your guide.`;
 ---
 
-<Default headTitle="Pokemon overview | PokemonPrime">
+<Default
+  headTitle={pageData.seoData.meta_title}
+  metaDescription={pageData.seoData.meta_description}
+>
   <main class="padding-bottom-0">
     <Navigation />
-    <ZebraStripe>
-      <SimpleTextBlock title="Pokedex" text={text} />
-    </ZebraStripe>
-    <ZebraStripe removeMarginBottom={true} isDark={true}>
-      <PokemonList />
-    </ZebraStripe>
+    <PageContent pageContent={pageData.pageContent} />
   </main>
 </Default>
+
+<script define:vars={{ pageData }}>
+  console.log(pageData);
+</script>

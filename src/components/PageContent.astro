@@ -1,6 +1,7 @@
 ---
-import { debugLog, setRoute } from "../utils";
+import { setRoute } from "../utils";
 import SimpleTextBlock from "../components/SimpleTextBlock.astro";
+import PokemonList from "../components/PokemonList.astro";
 import NewsList from "../components/NewsList.astro";
 import ZebraStripe from "../components/ZebraStripe.astro";
 import Slider from "../components/Slider.astro";
@@ -73,6 +74,7 @@ const { pageContent } = Astro.props;
                 imageUrl={pokemonData.image.url}
                 pokemonTypes={pokemonTypes}
                 backgroundColor={pokemonData.background_color}
+                url={pokemonData.url}
               />
             </PokemonDataBlock>
           </ZebraStripe>
@@ -84,8 +86,19 @@ const { pageContent } = Astro.props;
         return (
           <ZebraStripe removeMarginBottom={true} isDark={true}>
             <NewsList
-              newsItems={newsListData.newsItems}
               title={newsListData.title}
+              newsItems={newsListData.newsItems}
+            />
+          </ZebraStripe>
+        );
+      }
+      if (key === "pokemon_list") {
+        const pokemonListData = contentBlock[key];
+        return (
+          <ZebraStripe removeMarginBottom={true} isDark={true}>
+            <PokemonList
+              title={pokemonListData.title}
+              pokemonList={pokemonListData.pokemonList}
             />
           </ZebraStripe>
         );

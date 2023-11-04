@@ -7,16 +7,17 @@ const layoutData = await getDefaulLayoutData();
 
 interface Props {
   headTitle: string;
+  metaDescription: string;
 }
 
-const { headTitle } = Astro.props;
+const { headTitle, metaDescription } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content={metaDescription} />
     <meta name="viewport" content="width=device-width" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +26,13 @@ const { headTitle } = Astro.props;
       rel="stylesheet"
     />
     <meta name="generator" content={Astro.generator} />
-    <title>{headTitle}</title>
+    <title>
+      {
+        headTitle
+          ? `${headTitle} | ${layoutData.siteTitle}`
+          : layoutData.siteTitle
+      }
+    </title>
   </head>
   <body>
     <Header title={layoutData.siteTitle} text={layoutData.tagline} />

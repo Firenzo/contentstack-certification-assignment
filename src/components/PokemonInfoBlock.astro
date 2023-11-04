@@ -9,8 +9,6 @@ import {
   defineTypeBgColor,
 } from "../utils";
 
-import Enamorus from "../assets/images/0905Enamorus2.png";
-
 interface Props {
   title: string;
   number: number;
@@ -19,7 +17,7 @@ interface Props {
   description: string;
   imageUrl: string;
   backgroundColor: string;
-  textColor: string;
+  url: string;
 }
 
 const {
@@ -30,10 +28,11 @@ const {
   description,
   imageUrl,
   backgroundColor,
+  url,
 } = Astro.props;
 
 const pokemonNumber = toPokemonNumber(number);
-const pokemonURL = setRoute("/pokedex/enamorus");
+const pokemonURL = setRoute(url);
 const bg = hexToHSL(backgroundColor);
 const hoverBg = defineHoverColor(bg);
 const textColor = defineTextColor(bg);

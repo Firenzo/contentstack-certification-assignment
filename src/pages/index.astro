@@ -7,9 +7,16 @@ import getHomePageData from "../mappers/pages/Home";
 const pageData = await getHomePageData();
 ---
 
-<Default headTitle={pageData.siteTitle}>
+<Default
+  headTitle={pageData.seoData.meta_title}
+  metaDescription={pageData.seoData.meta_description}
+>
   <main>
     <Navigation />
     <PageContent pageContent={pageData.pageContent} />
   </main>
 </Default>
+
+<script define:vars={{ pageData }}>
+  console.log(pageData);
+</script>

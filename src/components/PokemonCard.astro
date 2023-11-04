@@ -3,7 +3,7 @@ import { toPokemonNumber } from "../utils/index";
 interface Props {
   name: string;
   number: number;
-  image: ImageMetadata;
+  image: string;
   imageAltText: string;
   href: string;
 }
@@ -14,7 +14,7 @@ const pokemonNumber = toPokemonNumber(number);
 
 <a href={href} class="pokemon-card">
   <div class="pokemon-card-image">
-    <img src={image.src} alt={imageAltText} />
+    <img src={image} alt={imageAltText} />
   </div>
   <div class="pokemon-card-content">
     <p class="pokemon-number">

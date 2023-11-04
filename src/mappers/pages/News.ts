@@ -1,16 +1,14 @@
-import { Stack, debugLog } from "../../utils";
-import getGlobalData from "../global/Global";
+import { Stack } from "../../utils";
 
 const getNewsPageData = async () => {
-  const globalData = await getGlobalData();
   const newsPageData: any = {};
-  newsPageData.siteTitle = globalData.siteTitle;
 
   try {
     const newsListKey = "news_list";
     const NewsQuery = Stack.ContentType("pages").Query();
     const newsData = await NewsQuery.where("title", "News").toJSON().findOne();
     newsPageData.pageContent = newsData.page_content;
+    newsPageData.seoData = newsData.seo_data;
 
     const newsListQuery = Stack.ContentType("articles").Query();
     const newsListData = await newsListQuery.toJSON().find();
