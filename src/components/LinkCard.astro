@@ -36,7 +36,7 @@ const publicationDate = toDateString(date);
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 
     .link-card-content {
@@ -44,7 +44,7 @@ const publicationDate = toDateString(date);
       margin-left: 3.5%;
       display: flex;
       flex-direction: column;
-      height: 100%;
+      height: auto;
     }
 
     .link-card-title {
@@ -56,11 +56,16 @@ const publicationDate = toDateString(date);
       overflow: hidden;
     }
 
-    .link-card-item-image {
-      border-radius: 30px;
+    .link-card-image {
+      border-radius: 15px;
       overflow: hidden;
-      width: 93%;
       max-width: 405px;
+      height: 300px;
+
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
     .description {
