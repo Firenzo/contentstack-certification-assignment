@@ -4,6 +4,7 @@ import NewsIntro from "../../components/NewsIntro.astro";
 import ZebraStripe from "../../components/ZebraStripe.astro";
 import Navigation from "../../components/Navigation.astro";
 import getNewsArticle from "../../mappers/pages/NewsDetail";
+import JSONRTE from "../../components/JSONRTE.astro";
 
 const article = await getNewsArticle(Astro.url.pathname);
 const headTitle = article.seoData?.meta_title ?? article.title;
@@ -16,16 +17,14 @@ const metaDescription =
     <Navigation />
 
     <ZebraStripe>
-      <div class="news-detail-page">
-        <NewsIntro
-          title={article.title}
-          image={article.image.url}
-          imageAlt="A photo of Team Rocket blasting off"
-          text={article.introduction}
-        />
-        <div class="news-detail-container">
-          <Fragment set:html={article.content} />
-        </div>
+      <NewsIntro
+        title={article.title}
+        image={article.image.url}
+        imageAlt={article.image.description}
+        text={article.introduction}
+      />
+      <div class="news-detail-container">
+        <JSONRTE jsonRteData={article.content?.children} />
       </div>
     </ZebraStripe>
   </main>
@@ -41,7 +40,8 @@ const metaDescription =
       margin-bottom: 2rem;
     }
 
-    iframe {
+    iframe,
+    embed {
       width: 100%;
       aspect-ratio: 16/9;
       margin-bottom: 2rem;

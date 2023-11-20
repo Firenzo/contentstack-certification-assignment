@@ -21,7 +21,7 @@ const { newsItems, title } = Astro.props;
             date={article.created_at}
             description={article.introduction}
             image={article.image.url}
-            imageAltText="this is an image"
+            imageAltText={article.image.description}
             href={setRoute(article.url)}
           />
         ))

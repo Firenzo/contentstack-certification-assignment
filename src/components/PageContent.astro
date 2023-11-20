@@ -48,7 +48,7 @@ const { pageContent } = Astro.props;
                         date={article.created_at}
                         description={article.introduction}
                         image={article.image.url}
-                        imageAltText="image alt text"
+                        imageAltText={article.image.description}
                         href={setRoute(article.url)}
                       />
                     </SliderItem>

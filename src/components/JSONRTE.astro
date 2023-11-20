@@ -1,0 +1,26 @@
+---
+import type { Code } from "astro:components";
+interface Props {
+  jsonRteData: any;
+}
+
+const { jsonRteData } = Astro.props;
+---
+
+<>
+  {
+    jsonRteData.map((element) => {
+      if (element.type) {
+        return (
+          <element.type {...element.attrs}>
+            {element.children && <Astro.self jsonRteData={element.children} />}
+          </element.type>
+        );
+      }
+
+      if (element.text) {
+        return element.text;
+      }
+    })
+  }
+</>

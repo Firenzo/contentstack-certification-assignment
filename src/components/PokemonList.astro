@@ -20,7 +20,7 @@ const { pokemonList, title } = Astro.props;
             name={pokemon.title}
             number={pokemon.pokemon_number}
             image={pokemon.image.url}
-            imageAltText="this is an image"
+            imageAltText={`Image of ${pokemon.title}`}
             href={setRoute(pokemon.url)}
           />
         ))
